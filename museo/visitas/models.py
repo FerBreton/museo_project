@@ -5,5 +5,5 @@ from django.db import models
 class Visita(models.Model):
     email = models.EmailField()
     timestamp_in = models.DateTimeField(auto_now_add=True)
-    timestamp_out = models.DateTimeField(auto_now=True)
-    comment = models.CharField(max_length=140)
+    timestamp_out = models.DateTimeField(blank=True, null=True)
+    comment = models.CharField(max_length=140, blank=True)
