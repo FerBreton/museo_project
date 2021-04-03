@@ -25,3 +25,18 @@ class Entrada(View):
         else:
             context = {'form': form}
             return render(request, 'entrada.html', context)
+
+class Salida(View):
+    def get(self, request):
+        form = SalidaForm()
+        context = {'form': form}
+        return render(request, 'salida.html', context)
+    
+    def post(self, request):
+        form = SalidaForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('index')
+        else:
+            context = {'form': form}
+            return render(request, 'salida.html', context)

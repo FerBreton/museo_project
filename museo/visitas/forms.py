@@ -6,3 +6,9 @@ class VisitaForm(forms.ModelForm):
         model = Visita
         fields = '__all__'
         exclude = ['timestamp_out','comment']
+
+class SalidaForm(forms.ModelForm):
+    class Meta:
+        model = Visita
+        fields = '__all__'
+        exclude = ['email','timestamp_in']
