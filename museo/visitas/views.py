@@ -9,9 +9,13 @@ from .forms import *
 
 class Home(View):
     def get(self, request):
+        return render(request, 'index.html', {})
+
+class Entrada(View):
+    def get(self, request):
         form = VisitaForm()
         context = {'form': form}
-        return render(request, 'index.html', context)
+        return render(request, 'entrada.html', context)
     
     def post(self, request):
         form = VisitaForm(request.POST)
@@ -20,4 +24,4 @@ class Home(View):
             return redirect('index')
         else:
             context = {'form': form}
-            return render(request, 'index.html', context)
+            return render(request, 'entrada.html', context)
