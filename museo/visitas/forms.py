@@ -11,4 +11,4 @@ class SalidaForm(forms.ModelForm):
     class Meta:
         model = Visita
         fields = '__all__'
-        exclude = ['email','timestamp_in']
+        exclude = ['timestamp_out']
