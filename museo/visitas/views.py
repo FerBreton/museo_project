@@ -3,7 +3,9 @@ from django.http import HttpResponse
 from django.views import View
 from .forms import *
 from .models import *
+from django.contrib import messages
 import datetime
+
 # Create your views here.
 
 #def home(request):
@@ -29,13 +31,15 @@ class Entrada(View):
             entrada = form.save(commit=False)
             visitas = Visita.objects.filter(timestamp_in__gte=datetime.date.today(), timestamp_out=None, email=entrada.email)
             if visitas:
-                print("Ya esta registrado")
+                messages.error(request, 'Correo ya registrado. Intente de nuevo.')
+                return redirect('entrada')
             else:
-                print("Entrada registrada")
                 entrada.save()
-            return redirect('index')
+                messages.success(request, 'Entrada registrada')
+                return redirect('index')
         else:
             context = {'form': form}
+            messages.error(request, 'Los datos ingresados son incorrectos. Intente de nuevo.')
             return render(request, 'entrada.html', context)
 
 class Salida(View):
@@ -64,10 +68,12 @@ class Salida(View):
                 visita.timestamp_out = datetime.datetime.now()
                 visita.comment = salida.comment
                 visita.save()
+                messages.success(request, 'Salida registrada')
+                return redirect('index')
             else:
-                print("No has registrado una entrada")
-
-            return redirect('index')
+                messages.error(request, 'Este correo no está ligado a una entrada. Intente de nuevo.')
+                return redirect('salida')
         else:
             context = {'form': form}
+            messages.error(request, 'Los datos ingresados son incorrectos. Intente de nuevo.')
             return render(request, 'salida.html', context)
