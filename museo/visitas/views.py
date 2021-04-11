@@ -40,7 +40,7 @@ class Entrada(View):
 
 class Salida(View):
     def get(self, request):
-        form = VisitaForm()
+        form = SalidaForm()
         context = {'form': form}
         return render(request, 'salida.html', context)
 

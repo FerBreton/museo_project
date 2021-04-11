@@ -3,5 +3,10 @@
 {% block content %}
 
 <h1>Registra tu salida</h1>
+<form method="post">
+    {% csrf_token %}
+    {{form}}
+    <button type="submit">Registrar salida</button>
+</form>
 
 {% endblock %}
